@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Thank You!</title>
+  </head>
+
+  <body>
+    <form method="post">
+      <label>Title<select name="title" id="QuestionSelector" onchange = "FindQuestion()">
+        <option selected disabled hidden>Select a Question...</option>
+        {% for t in titles %}
+        <option value = "{{ t }}">{{ t }}</option>
+        {% endfor %}
+      </select></label><br>
+      {% for q in questions %}
+      <div id = "{{q.title}}" style = "display:none">{{q.text}}?</div>
+      {% endfor %}
+      <label>Answer:<input type="text" name = "answer"></label><br>
+      <input type = "submit">
+    </form>
+    <script>
+        function FindQuestion()
+        {
+            var t = document.getElementById("QuestionSelector").value;
+            var test = [{% for t in titles %} "{{ t }}", {% endfor %} ""];
+            for (i = 0;i<test.length;i++)
+            {
+                if (t == test[i])
+                {
+                    document.getElementById(test[i]).style.display = "block";
+                }
+                else
+                {
+                    document.getElementById(test[i]).style.display = "none";
+                }
+            }
+        }
+</script>
+  </body>
+
+</html>
+
